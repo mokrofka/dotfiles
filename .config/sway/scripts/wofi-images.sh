@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Folder with images
-IMG_DIR="$HOME/Pictures/QuickMenu"
+IMG_DIR="$HOME/.config/sway/scripts/images"
 
 # Use WoFi to select an image
 FILE=$(find "$IMG_DIR" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) \
