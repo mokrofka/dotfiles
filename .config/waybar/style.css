@@ -1,0 +1,145 @@
+
+* {
+  border: none;
+  font-size: 16px;
+  font-family: "FiraCode Nerd Font";
+  padding-right: 4px;
+  padding-left: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+window#waybar {
+  background: transparent
+}
+
+/* //////////////////////////////////////////////////////////////////////// */
+/* Common module styling */
+
+#taskbar, #custom-weather, #custom-playerctl, #clock, #cpu,
+#memory, #battery, #network, #pulseaudio, #custom-microphone,
+#backlight, #disk, #tray, #workspaces {
+  margin-top: 200px;
+  border-bottom: 2px solid transparent;
+  background-color: transparent;
+	background: rgba(16, 16, 16, 0.8);
+}
+
+#custom-microphone:hover, #custom-weather:hover, #custom-playerctl:hover,
+#clock:hover, #cpu:hover, #memory:hover, #battery:hover, 
+#network:hover, #pulseaudio:hover, #backlight:hover,
+#disk:hover, #tray:hover, #workspaces:hover {
+  background: #3c3836;
+}
+
+/* //////////////////////////////////////////////////////////////////////// */
+/* Workspaces styling (left) */
+
+#workspaces {
+  margin-left: 100;
+}
+#workspaces button {
+  padding: 0 10px;
+  background-color: transparent;
+  color: #ebdbb2;
+}
+#workspaces button.urgent {
+  color: #d75e21;
+  font-weight: 900;
+}
+#workspaces button:hover {
+  background: #3c3836;
+}
+#workspaces button.focused {
+  box-shadow: inset 0 -2px #d79921;
+  color: #d79921;
+  font-weight: 900;
+}
+
+/* //////////////////////////////////////////////////////////////////////// */
+/* Taskbar (middle) */
+
+#taskbar {
+  margin-right: 100;
+	border-radius: 8px;
+}
+
+/* //////////////////////////////////////////////////////////////////////// */
+/* Tray (after middle) */
+
+#tray {
+  margin-right: 10;
+}
+
+/* //////////////////////////////////////////////////////////////////////// */
+/* Random stuff (right) */
+
+#custom-weather {
+  color: #ffbe61;
+}
+
+#battery {
+  color: aquamarine;
+  padding: 0px 5px;
+}
+#battery.charging {
+  color: #ffffff;
+  background-color: #26A65B;
+}
+#battery.warning:not(.charging) {
+  color: #ffffff;
+  background-color: #ffbe61;
+}
+#battery.critical:not(.charging) {
+  color: #ffffff;
+  background-color: #f53c3c;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#pulseaudio {
+  color:#26A65B;
+  padding: 0px 5px;
+}
+#pulseaudio.muted {
+  color: #FF0000;
+  padding: 0px 5px;
+}
+
+#custom-microphone {
+  color: #32a852;
+  padding: 0px 5px;
+}
+
+#network {
+  color:#3e86c6;
+  padding: 0px 5px;
+}
+
+#backlight {
+  color: #ffffff;
+  padding: 0px 5px;
+}
+
+#cpu {
+  color: #ffbe61;
+  padding: 0px 5px;
+}
+
+#memory {
+  color: #a4b827;
+  padding: 0px 5px;
+}
+
+#disk {
+  color: #a4b827;
+  padding: 0px 5px;
+}
+
+#clock {
+  margin-right: 100;
+  color: #5fd1fa;
+}

@@ -1,0 +1,138 @@
+
+{
+  "layer": "overlay",
+  "passthrough": false,
+  "exclusive": false, // doesn't take space
+
+  // Left
+  "modules-left": [
+    "sway/workspaces",
+    "custom/playerctl",
+    "custom/weather"
+  ],
+
+  "sway/workspaces": {
+    "disable-scroll": true
+  },
+
+  "custom/playerctl": {
+    "exec": "~/.config/waybar/playerctl.sh",
+    "interval": 2,
+    "max-length": 15,
+    "on-click": "playerctl play-pause",
+  },
+
+  "custom/weather": {
+    "exec": "~/.config/waybar/weather.sh",
+    "return-type": "json",
+    "format": "{}",
+    "interval": 900,
+    "tooltip": true
+  },
+
+  // Middle
+  "modules-center": [
+    "wlr/taskbar" // apps
+  ],
+
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 19,
+    "on-click": "activate",
+    "on-click-right": "close",
+    "tooltip": true
+  },
+
+  // Right
+  "modules-right": [
+    "tray",
+    "battery",
+    "pulseaudio",
+    "custom/microphone",
+    "backlight",
+    "network",
+    "cpu",
+    "memory",
+    "disk",
+    "clock",
+    "whatever"   // prevents to hide bar
+  ],
+  
+  "tray": {
+    "icon-size": 20,
+    "spacing": 10
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰂄{capacity}%",
+    "format-full": "󱈑 {capacity}%",
+    "format-icons": [
+      "󱊡",
+      "󱊢",
+      "󱊣"
+    ],
+    "tolltip": true
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 {volume}%",
+    "format-icons": {
+      "default": [ "󰕿", "󰖀", "󰕾" ]
+    },
+    "tooltip": true
+  },
+
+  "custom/microphone": {
+    "exec": "~/.config/waybar/show_micro_volume.sh",
+    "interval": 1,
+    "format": " {}",
+    "tooltip": false
+  },
+
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "tooltip": false
+  },
+
+  "network": {
+    "format-wifi": "󰖩 {essid}",
+    "format-ethernet": "󰈀 {ifname}",
+    "format-linked": "󰈀 {ifname} (No IP)",
+    "format-disconnected": "󰖪 Off",
+    "interval": 5,
+    "tooltip-format": "{ifname}: {ipaddr}",
+    "tooltip": true
+  },
+
+  "cpu": {
+    "format": "CPU {usage}%",
+    "tooltip": true,
+    "interval": 2
+  },
+
+  "memory": {
+    "format": "RAM {percentage}%",
+    "tooltip": false
+  },
+
+  "disk": {
+    "format": "Disc {percentage_used}%",
+    "path": "/",
+    "interval": 30
+  },
+
+  "clock": {
+    "format": "{:%a %d %b %H:%M:%S}",
+    "tooltip-format": "{calendar}",
+    "interval": 1
+  }
+
+}

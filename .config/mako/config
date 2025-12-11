@@ -1,0 +1,10 @@
+
+layer=overlay
+background-color=#1E1E2E
+border-color=#c47f25
+border-size=2
+icons=1
+default-timeout=5000
+
+
+height=200

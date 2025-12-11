@@ -1,0 +1,295 @@
+# ////////////////////////////////////////////////////////////////////////
+# Pacman packages
+
+# Basic ------------
+# sway  -tiling manager
+# fish  -shell
+# yay   -automize installs
+# tlp   -battery saver
+
+# Media ------------
+# grim        -screenshot
+# slurp       -screen selection
+# swappy      -simple screenshot editor
+# imv         -image viewer
+# mpv         -video player
+
+# Daemons ------------
+# swayidle       -idle
+# brightnessctl  -controlls brightness
+# playerctl      -controls player
+# pipewire       -makes sound work
+# wlsunset       -night light
+# ydotool        -simulate key/mouse stuff
+# keyd           -key remaper
+# NetworkManager -automates intet stuff
+# cliphist       -clipboard history
+# wl-clipboard   -waylnad handling clipboard
+# mako           -notifications
+
+# GUI apps ------------
+# alacritty  -terminal
+# waybar     -status bar
+# wofi       -apps launcher
+# okular     -pdf reader
+# obsidian   -for notes
+# obs-studio -recording
+# telegram-desktop
+# discord
+
+# CLI apps ------------
+# yazi       -terminal file explorer | 
+#   ouch       -archive/extract any format
+#   trash-cli  -to undo deletion
+# nvim       -text editor
+# htop       -resmanager
+# btop       -resmanager
+# nvtop      -gpu resmanager
+# ncdu       -shows disk usage
+# fastfetch  -quick sys overview
+# zip
+# p7zip
+
+# breeze-gtk -gtk theme
+# vscodium, clang, cmake, lld, lldb, git, ninja 
+# vulkan-validation-layers
+# ttf-cascadia-code
+
+# ////////////////////////////////////////////////////////////////////////
+# yay: 
+
+# sudo pacman -S --noconfirm sway, swayidle, waybar, wofi, alacritty, NetworkManager, cliphist, keyd, playerctl, grim, slurp, swappy, wl-clipboard, brightnessctl, pipewire, tlp, nvim, fish, htop, fastfetch, okular, yazi, yay, ydotool, wlsunset dolphin
+
+# bluetooth, file search, weather, dark theme, script to stop all players, zip in terminal
+
+# ydotool NOTE: without sudo: you need add yourself into input group
+
+# names of special symbols
+# apostrophe -> '
+# semicolon  -> ;
+# period     -> .
+# comma      -> ,
+# slash      -> /
+# minus      -> -
+# equal      -> =
+
+set $mod Mod4
+set $alt Mod1
+set $shift Shift
+set $control Control
+
+# ////////////////////////////////////////////////////////////////////////
+# Hotkeys
+
+# Open hotkeys
+bindsym $alt+space exec alacritty                                            # terminal
+bindsym $mod+space exec wofi --show drun                                     # app laucher
+bindsym $mod+v exec cliphist list | wofi --dmenu | cliphist decode | wl-copy # clipboard
+bindsym $mod+c exec pkill waybar || waybar &                                 # switch status bar
+bindsym $mod+e exec alacritty -e fish -ic "y; exec fish"                     # terminal explorer
+bindsym $mod+o exec vscodium                                                 # vscode
+bindsym $mod+i exec vscodium ~/.config/sway/config                           # sway config
+bindsym $mod+u exec ~/.config/sway/scripts/wofi-images.sh                    # fast access to needed images
+bindsym $mod+p exec ~/.config/wofi/kill_processe.sh                          # kill processes
+bindsym $mod+semicolon exec ~/.config/wofi/wifi_connection.sh                # wifi menu
+bindsym $mod+apostrophe exec ~/.config/wofi/shutdown.sh                      # shutdown menu
+bindsym $mod+y exec alacritty -e sudo nvim /opt/discord/resources/build_info.json # open discord json file
+
+bindsym $mod+F12       exec ~/.config/sway/scripts/open_site.sh                               # caps+tab
+bindsym $mod+control+2 exec ~/.config/sway/scripts/open_gpt.sh                                # caps+esc
+bindsym $mod+backspace exec ~/.config/sway/scripts/open_calculator.sh                         # caps+backspace
+bindsym $mod+alt+F1    exec ~/.config/sway/scripts/open_translator.sh                         # caps+alt+1
+bindsym $mod+alt+F2    exec ~/.config/sway/scripts/open_gambridge_dictionary.sh               # caps+alt+2
+bindsym $mod+alt+F3    exec ~/.config/sway/scripts/open_reverse_context.sh                    # caps+alt+3
+bindsym $mod+alt+F4    exec ~/.config/sway/scripts/open_youtube.sh                            # caps+alt+4
+bindsym $mod+alt+F5    exec ~/.config/sway/scripts/open_youtube_music.sh                      # caps+alt+5
+bindsym $mod+alt+F8    exec ~/.config/sway/scripts/open_DWDS.sh                               # caps+alt+8
+bindsym $mod+alt+F9    exec ~/.config/sway/scripts/open_german_conjugation_reverse_context.sh # caps+alt+9
+bindsym $mod+alt+F10   exec ~/.config/sway/scripts/open_german_reverse_context.sh             # caps+alt+0
+
+# Actions
+bindsym alt+Tab workspace back_and_forth                                # alt+tab
+bindsym $mod+d kill                                                     # close app
+bindsym $mod+period exec ~/.config/sway/scripts/right_click.sh          # right click
+bindsym $control+semicolon exec ~/.config/sway/scripts/click_mouse.sh   # right click on screen
+bindsym $mod+x exec brightnessctl set 5%+                               # increase brightness
+bindsym $mod+z exec brightnessctl set 5%-                               # decrease brightness
+bindsym $mod+s exec pactl set-sink-volume \@DEFAULT_SINK@ +5%           # increase volume
+bindsym $mod+a exec pactl set-sink-volume \@DEFAULT_SINK@ -5%           # decrease volume
+# bindsym $mod+shift+q exec pactl set-source-volume \@DEFAULT_SOURCE@ +5% # increase micro
+# bindsym $mod+shift+w exec pactl set-source-volume \@DEFAULT_SOURCE@ -5% # decrease micro
+bindsym $mod+1 exec pactl set-sink-mute \@DEFAULT_SINK@ toggle          # turn on/off volume
+bindsym $mod+2 exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle      # turn on/off micro
+bindsym $mod+F11 exec playerctl play-pause                              # caps+f stop player
+
+# screenshot
+bindsym $mod+0 exec sh -c 'FILE=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png; grim "$FILE" && wl-copy < "$FILE"'
+# screenshot selection
+bindsym $mod+9 exec sh -c 'FILE=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png; grim -g "$(slurp)" "$FILE" && wl-copy < "$FILE"'
+# screenshot selection + edit
+bindsym $mod+shift+s exec grim -g "$(slurp)" - | swappy -f -
+
+# reload sway configuration
+bindsym $mod+shift+c reload
+# Exit sway (logs you out of your Wayland session)
+bindsym $mod+shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+# Navigation:
+  bindsym $mod+f   fullscreen
+  bindsym $mod+m   splith
+  bindsym $mod+n   splitv
+  bindsym $mod+q   layout toggle split # default window layout
+  bindsym $mod+w   layout tabbed       # kinda tabs
+  bindsym $mod+t   floating toggle
+  bindsym $mod+tab focus mode_toggle
+  bindsym $mod+g   focus parent        # kinda select all windows
+
+  # hide window
+  bindsym $mod+shift+minus move scratchpad
+  # show hidden window
+  bindsym $mod+minus scratchpad show
+
+  # Move your focus around
+  bindsym $mod+h focus left
+  bindsym $mod+j focus down
+  bindsym $mod+k focus up
+  bindsym $mod+l focus right
+
+  # Move the focused window with the same, but add Shift
+  set $window_move_count 140px
+  bindsym $mod+shift+h move left  $window_move_count
+  bindsym $mod+shift+j move down  $window_move_count
+  bindsym $mod+shift+k move up    $window_move_count
+  bindsym $mod+shift+l move right $window_move_count
+
+# Workspaces:
+# caps+z caps+x caps+c caps+v caps+b caps+n caps+m caps+, caps+. caps+/
+  bindsym $mod+f1 workspace number 1
+  bindsym $mod+f2 workspace number 2
+  bindsym $mod+f3 workspace number 3
+  bindsym $mod+f4 workspace number 4
+  bindsym $mod+f5 workspace number 5
+  bindsym $mod+f6 workspace number 6
+  bindsym $mod+f7 workspace number 7
+  bindsym $mod+f8 workspace number 8
+  bindsym $mod+f9 workspace number 9
+  bindsym $mod+f10 workspace number 10
+
+# caps+alt+1 caps+alt+3 caps+alt+4 caps+alt+5 caps+alt+6 caps+alt+7 caps+alt+8 caps+alt+9 caps+alt+10
+  bindsym $mod+shift+f1 move container to workspace number 1
+  bindsym $mod+shift+f2 move container to workspace number 2
+  bindsym $mod+shift+f3 move container to workspace number 3
+  bindsym $mod+shift+f4 move container to workspace number 4
+  bindsym $mod+shift+f5 move container to workspace number 5
+  bindsym $mod+shift+f6 move container to workspace number 6
+  bindsym $mod+shift+f7 move container to workspace number 7
+  bindsym $mod+shift+f8 move container to workspace number 8
+  bindsym $mod+shift+f9 move container to workspace number 9
+  bindsym $mod+shift+f10 move container to workspace number 10
+
+# Resize:
+  set $resize_count 80px
+  mode "resize" {
+    bindsym h resize shrink width  $resize_count
+    bindsym j resize grow height   $resize_count
+    bindsym k resize shrink height $resize_count
+    bindsym l resize grow width    $resize_count
+    bindsym Escape mode "default"
+  }
+  bindsym $mod+r mode "resize"
+
+# fn + F1, F2... keys
+  bindsym --locked XF86AudioMute         exec pactl set-sink-mute   \@DEFAULT_SINK@ toggle
+  bindsym --locked XF86AudioLowerVolume  exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+  bindsym --locked XF86AudioRaiseVolume  exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+  bindsym --locked XF86AudioMicMute      exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+  bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+  bindsym --locked XF86MonBrightnessUp   exec brightnessctl set 5%+
+  bindsym Print exec grim
+
+# ////////////////////////////////////////////////////////////////////////
+# Settings
+
+# set $web-browser google-chrome
+
+# alt to move windows
+floating_modifier alt normal
+
+# disable focus change by mouse move
+focus_follows_mouse no
+
+# don't make borders if only 1 window
+smart_borders on
+
+# fucused window borders
+default_border pixel 2
+
+# sway colors:  title border | title bg | title text | child bg | selected borders  
+client.focused  #966632        #704f2c    #ffffff      #b07d46    #fc8403
+
+# sceen scale
+output eDP-1 scale 1.4 
+
+# Input
+input type:keyboard {
+  xkb_layout us,ru
+  repeat_delay 140
+  repeat_rate 50
+  xkb_options compose:prsc
+}
+
+bindsym $mod+control+3 exec sway input "type:keyboard" xkb_layout us # caps+u
+bindsym $mod+control+4 exec sway input "type:keyboard" xkb_layout ru # caps+y
+
+input type:touchpad {
+  tap enabled
+  natural_scroll enabled
+  accel_profile adaptive
+  pointer_accel 0.3
+  scroll_factor 0.6
+  drag_lock disabled
+}
+
+# ////////////////////////////////////////////////////////////////////////
+# Apps Startup
+
+# Set XDG_CURRENT_DESKTOP for proper Wayland support
+# exec --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+# # Start xdg-desktop-portal services (ensure wlr starts first)
+# exec --no-startup-id /usr/lib/xdg-desktop-portal-wlr &
+# exec --no-startup-id /usr/lib/xdg-desktop-portal -r
+
+# Clipboard
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
+
+exec --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+# Sleep mode
+# exec swayidle -w \
+#   timeout 340 'brightnessctl get > /tmp/brightness && brightnessctl set $(( $(cat /tmp/brightness) / 2 ))' \
+#   resume 'brightnessctl set $(cat /tmp/brightness)' \
+#   timeout 400 'systemctl suspend'
+
+# Night light
+exec wlsunset -t 3500 -T 6500 -S 06:00 -s 19:00
+# Mouse click simulation by ctrl+;
+exec ydotoold
+# Notifications
+exec mako
+
+# set $gnome-schema org.gnome.desktop.interface move
+# exec_always {
+#   gsettings set $gnome-schema gtk-thema 
+# }
+
+# Idle configuration
+# Example configuration:
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
